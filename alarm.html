@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alarm</title>
+    <style>
+        body {
+            font-family: "Poppins";
+            background: linear-gradient(to right, rgb(200, 85, 223), rgb(90, 2, 75));
+        }
+        .modes {
+            display: flex;
+            flex-direction: row;
+            height: 10vh;
+            width: 100%;
+            justify-content: space-around;
+        }
+
+        .modes > div {
+            background-color: rgba(255, 255, 255, 0.685);
+            height: 80%;
+            width: 10%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 1rem;
+            cursor: pointer;
+        }
+
+        .modes > div:hover {
+            background-color: rgba(255, 255, 255, 0.985);
+        }
+
+        .clock {
+            display: flex;
+            flex-direction: row;
+            height: 30vh;
+            width: 80%;
+            position: absolute;
+            border-radius: 1rem;
+            top: 25vh;
+            left: 10%;
+            box-shadow: 46px 17px 45px 9px rgba(0, 0, 0, 0.75);
+        }
+
+        .clock > div {
+            background-color: rgba(2, 9, 68, 0.685);
+            height: 100%;
+            width: 60%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 600%;
+            border: 1px solid white;
+            color: white;
+        }
+
+        .clock-hours {
+            border-bottom-left-radius: 1rem;
+            border-top-left-radius: 1rem;
+        }
+
+        .clock-seconds {
+            border-bottom-right-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+
+        .column1 {
+            font-size: 800%;
+            color: white;
+            position: absolute;
+            left: 35.6%;
+            top: 25%;
+            z-index: 2;
+        }
+
+        .column2 {
+            font-size: 800%;
+            color: white;
+            position: absolute;
+            left: 62.2%;
+            top: 25%;
+            z-index: 2;
+        }
+
+        #time-input {
+            position: absolute;
+            top: 65%;
+            left: 35%;
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.308);
+            border: none;
+            height: 10%;
+            width: 25%;
+            font-size: 300%;
+            padding-left: 4rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            padding-right: 0.5rem;
+            font-family: "Poppins";
+            cursor: pointer;
+        }
+
+        #time-input:focus {
+            background-color: rgba(255, 255, 255, 0.808);          
+        }
+
+        input[type=time]::-webkit-inner-spin-button {
+            background-color: red;
+        }
+
+        .set-alarm {
+            height: 4%;
+            width: 15%;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            text-align: center;
+            background-color: rgb(100, 110, 245);
+            position: absolute;
+            left: 42%;
+            top: 82%;
+        }
+
+        .set-alarm:hover {
+            background-color: rgb(48, 61, 245);
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="modes">
+        <div class="clock-button">Clock</div>
+        <div class="timer-button">Timer</div>
+        <div class="stopwatch-button">Stopwatch</div>
+        <div class="alarm-button">Alarm</div>
+    </div>
+    <div class="column1">:</div>
+    <div class="column2">:</div>
+    <div class="clock">
+        <div class="clock-hours"></div>
+        <div class="clock-minutes"></div>
+        <div class="clock-seconds"></div>
+    </div>
+
+    <input type="time" id="time-input">
+    <div class="set-alarm">Confirm Alarm</div>
+</body>
+<script src="alarm.js"></script>
+</html>

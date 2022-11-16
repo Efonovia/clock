@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <style>
+        body {
+            font-family: "Poppins";
+            background: linear-gradient(to right, rgb(200, 85, 223), rgb(90, 2, 75));
+        }
+        .modes {
+            display: flex;
+            flex-direction: row;
+            height: 10vh;
+            width: 100%;
+            justify-content: space-around;
+        }
+
+        .modes > div {
+            background-color: rgba(255, 255, 255, 0.685);
+            height: 80%;
+            width: 10%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 1rem;
+            cursor: pointer;
+        }
+
+        .modes > div:hover {
+            background-color: rgba(255, 255, 255, 0.985);
+        }
+
+        .clock {
+            display: flex;
+            flex-direction: row;
+            height: 30vh;
+            width: 80%;
+            position: absolute;
+            border-radius: 1rem;
+            top: 25%;
+            left: 10%;
+            box-shadow: 46px 17px 45px 9px rgba(0, 0, 0, 0.75);
+        }
+
+        .clock > div {
+            background-color: rgba(2, 9, 68, 0.685);
+            height: 100%;
+            width: 60%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 600%;
+            border: 1px solid white;
+            color: white;
+        }
+
+        .clock-hours {
+            border-bottom-left-radius: 1rem;
+            border-top-left-radius: 1rem;
+        }
+
+        .clock-seconds {
+            border-bottom-right-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+
+        .column1 {
+            font-size: 800%;
+            color: white;
+            position: absolute;
+            left: 35.5%;
+            top: 25%;
+            z-index: 2;
+        }
+
+        .column2 {
+            font-size: 800%;
+            color: white;
+            position: absolute;
+            left: 62.1%;
+            top: 25%;
+            z-index: 2;
+        }
+
+        .status {
+            width: 90vw;
+            height: 10vh;
+            margin-left: 5vw;
+            margin-top: 5vh;
+            display: flex;
+            flex-direction: row;
+            border-bottom: -5px solid black;
+        }
+
+        .digital-on {
+            width: 50%;
+            height: 100%;
+            background-color: rgba(240, 223, 187, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            /* border-bottom-left-radius: 1.5rem; */
+            /* border-top-left-radius: 1.5rem; */
+        }
+
+        .digital-on:hover {
+            background-color: rgb(255, 255, 255);
+        }
+
+        .digital-off {
+            width: 50%;
+            height: 100%;
+            background-color: rgba(240, 223, 187, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            /* border-bottom-left-radius: 1.5rem; */
+            /* border-top-left-radius: 1.5rem; */
+        }
+
+        .digital-off:hover {
+            background-color: rgba(240, 223, 187, 0.7);
+        }
+
+        .analog-on {
+            width: 50%;
+            height: 100%;
+            background-color: rgba(240, 223, 187, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            /* border-bottom-right-radius: 1.5rem; */
+            /* border-top-right-radius: 1.5rem; */
+        }
+
+        .analog-on:hover {
+            background-color: rgb(255, 255, 255);
+        }
+
+        .analog-off {
+            width: 50%;
+            height: 100%;
+            background-color: rgba(240, 223, 187, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            /* border-bottom-right-radius: 1.5rem; */
+            /* border-top-right-radius: 1.5rem; */
+        }
+
+        .analog-off:hover {
+            background-color: rgba(240, 223, 187, 0.7);
+        }
+
+        .digital-area {
+            width: 90vw;
+            height: 70vh;
+            background-color: rgba(243, 243, 219, 0.2);
+            position: relative;
+            /* z-index: 0; */
+            margin-top: -4px;
+            margin-left: 5vw;
+        }
+
+        .bar {
+            width: 25vw;
+            height: 4px;
+            background-color: rgb(32, 0, 27);
+            position: relative;
+            left: 15vw;
+            top: -4px
+        }
+
+        canvas {
+            width: 500px;
+            height: 500px;
+            margin-top: -30px;
+            margin-left: calc((90vw - 520px)/2);
+        }
+
+        .analog-area {
+            width: 90vw;
+            height: 70vh;
+            background-color: rgba(243, 243, 219, 0.2);
+            position: relative;
+            margin-top: -4px;
+            margin-left: 5vw;
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="modes">
+        <div class="clock-button">Clock</div>
+        <div class="timer-button">Timer</div>
+        <div class="stopwatch-button">Stopwatch</div>
+        <div class="alarm-button">Alarm</div>
+    </div>
+
+    <div class="status">
+        <div class="digital-on">Digital</div>
+        <div class="analog-off">Analog</div>
+    </div>
+
+    <div class="bar"></div>
+    <div class="digital-area">
+        <div class="column1">:</div>
+        <div class="column2">:</div>
+        <div class="clock">
+            <div class="clock-hours"></div>
+            <div class="clock-minutes"></div>
+            <div class="clock-seconds"></div>
+        </div>
+    </div>
+
+    <div class="analog-area">
+        <canvas></canvas>
+        <script src="analog.js"></script>
+    </div>
+
+</body>
+<script src="clock.js"></script>
+</html>

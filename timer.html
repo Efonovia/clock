@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alarm</title>
+    <style>
+        body {
+            font-family: "Poppins";
+            background: linear-gradient(to right, rgb(200, 85, 223), rgb(90, 2, 75));
+        }
+        .modes {
+            display: flex;
+            flex-direction: row;
+            height: 10vh;
+            width: 100%;
+            justify-content: space-around;
+        }
+
+        .modes > div {
+            background-color: rgba(255, 255, 255, 0.685);
+            height: 80%;
+            width: 10%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 1rem;
+            cursor: pointer;
+        }
+
+        .modes > div:hover {
+            background-color: rgba(255, 255, 255, 0.985);
+        }
+
+        .clock {
+            display: flex;
+            flex-direction: row;
+            height: 30vh;
+            width: 80%;
+            position: absolute;
+            border-radius: 1rem;
+            top: 35vh;
+            left: 10%;
+            box-shadow: 46px 17px 45px 9px rgba(0, 0, 0, 0.75);
+        }
+
+        .clock > div {
+            background-color: rgba(2, 9, 68, 0.685);
+            height: 100%;
+            width: 60%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 600%;
+            border: 1px solid white;
+            color: white;
+        }
+
+        .clock-hours {
+            border-bottom-left-radius: 1rem;
+            border-top-left-radius: 1rem;
+        }
+
+        .clock-seconds {
+            border-bottom-right-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+
+        .column1 {
+            font-size: 800%;
+            color: white;
+            position: absolute;
+            left: 35.6%;
+            top: 34%;
+            z-index: 2;
+        }
+
+        .column2 {
+            font-size: 800%;
+            color: white;
+            position: absolute;
+            left: 62.2%;
+            top: 34%;
+            z-index: 2;
+        }
+
+        .pause-reset {
+            display: none;
+            flex-direction: row;
+            height: 10vh;
+            width: 80%;
+            position: absolute;
+            justify-content: center;
+            top: 85%;
+            left: 2%;
+            margin: 0;
+        }
+
+        .start-reset {
+            display: none;
+            flex-direction: row;
+            height: 10vh;
+            width: 80%;
+            position: absolute;
+            justify-content: center;
+            top: 85%;
+            left: 2%;
+            margin: 0;
+        }
+
+        .start {
+            height: 2.5rem;
+            width: 8%;
+            background-color: rgba(16, 222, 236, 0.14);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: absolute;
+            top: 85%;
+            left: 47%;
+            border-radius: 0.5rem;
+            color: white;
+            border: 1px solid white;
+        }
+
+        .startSR {
+            height: 60%;
+            width: 11%;
+            background-color: rgba(16, 222, 236, 0.14);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            left: 6%;
+            border-radius: 0.5rem;
+            color: white;
+            border: 1px solid white;
+        }
+
+
+        .pausePR {
+            height: 60%;
+            width: 11%;
+            background-color: rgba(16, 222, 236, 0.14);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            left: 6%;
+            border-radius: 0.5rem;
+            color: white;
+            border: 1px solid white;
+        }
+
+        .resetPR {
+            height: 60%;
+            width: 11%;
+            background-color: rgba(16, 222, 236, 0.14);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            margin-left: 15%;
+            border-radius: 0.5rem;
+            color: white;
+            border: 1px solid white;
+        }
+
+        .resetSR {
+            height: 60%;
+            width: 11%;
+            background-color: rgba(16, 222, 236, 0.14);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            margin-left: 15%;
+            border-radius: 0.5rem;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .start:hover {
+            color: black;
+            border: 1px solid white;
+            background-color: rgba(16, 111, 236, 0.64);
+        }
+        
+        .startSR:hover {
+            color: black;
+            border: 1px solid white;
+            background-color: rgba(16, 111, 236, 0.64);
+        }
+
+        .pausePR:hover {
+            color: black;
+            border: 1px solid white;
+            background-color: rgba(16, 111, 236, 0.64);
+        }
+
+        .resetPR:hover {
+            color: black;
+            border: 1px solid white;
+            background-color: rgba(16, 111, 236, 0.64);
+        }
+
+        .resetSR:hover {
+            color: black;
+            border: 1px solid white;
+            background-color: rgba(16, 111, 236, 0.64);
+        }
+
+
+        .increase-hour {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 50px solid rgba(253, 253, 253, 0.3);
+            cursor: pointer;
+            position: absolute;
+            top: 22%;
+            left: 20%;
+        }
+
+        .increase-hour:hover {
+            border-bottom: 50px solid rgba(253, 253, 253, 0.89);
+        }
+
+        .decrease-hour {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-top: 50px solid rgba(253, 253, 253, 0.3);
+            cursor: pointer;
+            position: absolute;
+            top: 72%;
+            left: 20%;
+        }
+
+        .decrease-hour:hover {
+            border-top: 50px solid rgba(253, 253, 253, 0.89);
+        }
+
+        .increase-minute {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 50px solid rgba(253, 253, 253, 0.3);
+            cursor: pointer;
+            position: absolute;
+            top: 22%;
+            left: 47%;
+        }
+
+        .increase-minute:hover {
+            border-bottom: 50px solid rgba(253, 253, 253, 0.89);
+        }
+
+        .decrease-minute {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-top: 50px solid rgba(253, 253, 253, 0.3);
+            cursor: pointer;
+            position: absolute;
+            top: 72%;
+            left: 47%;
+        }
+
+        .decrease-minute:hover {
+            border-top: 50px solid rgba(253, 253, 253, 0.89);
+        }
+
+        .increase-second {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 50px solid rgba(253, 253, 253, 0.3);
+            cursor: pointer;
+            position: absolute;
+            top: 22%;
+            left: 72%;
+        }
+
+        .increase-second:hover {
+            border-bottom: 50px solid rgba(253, 253, 253, 0.89);
+        }
+
+        .decrease-second {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-top: 50px solid rgba(253, 253, 253, 0.3);
+            cursor: pointer;
+            position: absolute;
+            top: 72%;
+            left: 72%;
+        }
+
+        .decrease-second:hover {
+            border-top: 50px solid rgba(253, 253, 253, 0.89);
+        }
+    </style>
+</head>
+<body>
+    <div class="modes">
+        <div class="clock-button">Clock</div>
+        <div class="timer-button">Timer</div>
+        <div class="stopwatch-button">Stopwatch</div>
+        <div class="alarm-button">Alarm</div>
+    </div>
+    <div class="column1">:</div>
+    <div class="column2">:</div>
+
+    <div class="increase-hour"></div>
+    <div class="decrease-hour"></div>
+    <div class="increase-minute"></div>
+    <div class="decrease-minute"></div>
+    <div class="increase-second"></div>
+    <div class="decrease-second"></div>
+    <div class="clock">
+        <div class="clock-hours">00</div>
+        <div class="clock-minutes">00</div>
+        <div class="clock-seconds">00</div>
+    </div>
+
+    <div class="start-reset">
+        <div class="resetSR">RESET</div>
+        <div class="startSR">START</div>
+    </div>
+
+    <div class="pause-reset">
+        <div class="resetPR">RESET</div>
+        <div class="pausePR">PAUSE</div>
+    </div>
+
+    <div class="start">START</div>
+</body>
+<script src="timer.js"></script>
+</html>
